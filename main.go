@@ -29,6 +29,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/mitchellh/go-homedir"
@@ -251,7 +252,7 @@ func get_nonce() (bool, string) {
 	if fileInfo, err := os.Stat(config.NoncePath); err == nil {
 		if fileInfo.Size() > 0 {
 			nonce, _ := ioutil.ReadFile(config.NoncePath)
-			return true, string(nonce)
+			return true, strings.TrimSuffix(string(nonce), "\n")
 		}
 	}
 
